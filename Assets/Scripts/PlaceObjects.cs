@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlaceObjects : MonoBehaviour
 {
     public Transform gridCellPrefab;
-    public Transform cube;
+    public Transform wall;
+    public Transform tower;
     public Transform onMousePrefab;
     public Vector3 smoothMousePos;
 
@@ -25,6 +26,21 @@ public class PlaceObjects : MonoBehaviour
     void Update()
     {
         GetMousePositionOnGrid();
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                BoxCollider bc = hit.collider as BoxCollider;
+                if (bc != null)
+                {
+                    Destroy(bc.gameObject);
+                }
+            }
+        }
     }
 
     void GetMousePositionOnGrid()
@@ -52,11 +68,19 @@ public class PlaceObjects : MonoBehaviour
         }
     }
 
-    public void OnMouseClickOnUI()
+    public void PlaceWall()
     {
         if(onMousePrefab==null)
         {
-            onMousePrefab = Instantiate(cube, mousePosition, Quaternion.identity);
+            onMousePrefab = Instantiate(wall, mousePosition, Quaternion.identity);
+        }
+    }
+
+    public void PlaceTower()
+    {
+        if (onMousePrefab == null)
+        {
+            onMousePrefab = Instantiate(tower, mousePosition, Quaternion.identity);
         }
     }
 
