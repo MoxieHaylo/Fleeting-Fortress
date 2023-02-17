@@ -7,6 +7,7 @@ public class PlaceObjects : MonoBehaviour
     public Transform gridCellPrefab;
     public Transform wall;
     public Transform tower;
+    public Transform fill;
     public Transform onMousePrefab;
     public Vector3 smoothMousePos;
 
@@ -73,6 +74,7 @@ public class PlaceObjects : MonoBehaviour
         if(onMousePrefab==null)
         {
             onMousePrefab = Instantiate(wall, mousePosition, Quaternion.identity);
+            print("Place wall");
         }
     }
 
@@ -81,6 +83,16 @@ public class PlaceObjects : MonoBehaviour
         if (onMousePrefab == null)
         {
             onMousePrefab = Instantiate(tower, mousePosition, Quaternion.identity);
+            print("Place tower");
+        }
+    }
+
+    public void PlaceFill()
+    {
+        if (onMousePrefab == null)
+        {
+            onMousePrefab = Instantiate(fill, mousePosition, Quaternion.identity);
+            print("Place fill");
         }
     }
 
